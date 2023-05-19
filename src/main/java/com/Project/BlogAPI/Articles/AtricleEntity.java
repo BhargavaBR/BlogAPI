@@ -2,9 +2,9 @@ package com.Project.BlogAPI.Articles;
 
 import com.Project.BlogAPI.Commons.BaseEntity;
 import com.Project.BlogAPI.Users.UsersEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity(name = "articles")
 public class AtricleEntity extends BaseEntity {
@@ -19,5 +19,14 @@ public class AtricleEntity extends BaseEntity {
 
     @ManyToOne
     UsersEntity author;
+
+
+    @ManyToMany(targetEntity = UsersEntity.class)
+    @JoinTable(
+            name = "article_likes",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    List<UsersEntity> likes;
 
 }
